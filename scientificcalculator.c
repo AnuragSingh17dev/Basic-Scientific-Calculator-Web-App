@@ -18,11 +18,12 @@ double solve_arithmetic(double value1, double value2, char operator) {
             if (value2 != 0)
                 return value1 / value2;
             else {
-                printf("Error: Division by zero!\n");
+                printf("Error: Division by zero\n");
                 exit(EXIT_FAILURE);
             }
         default:
-            printf("Error: Invalid operator '%c'\n", operator);
+            printf("Error: Invalid operator.\n");
+            printf("Please enter equation:'%c'\n", operator);
             exit(EXIT_FAILURE);
     }
 }
@@ -37,54 +38,54 @@ double solve_scientific(char function[], double value) {
     else if (strcmp(function, "tan") == 0)
         return tan(value);
     else {
-        printf("Error: Invalid function '%s'\n", function);
+        printf("Error: Invalid function\n");
+        printf("Please enter equation:'%s'\n", function);
         exit(EXIT_FAILURE);
     }
 }
 
 int main() {
     char input[MAX_INPUT_LENGTH];
-    double value1, value2, result;
+    double value1, value2, answer;
     char operator, function[5];
     bool scientific = false;
-    char choice;
+    char option;
 
-    printf("Welcome to the Basic Scientific Calculator in C!\n");
+    printf("Basic Scientific Calculator!\n");
 
     do {
-        printf("\nSelect operation:\n");
+        printf("\nSelection Screen:\n");
         printf("1. Arithmetic (+, -, *, /)\n");
         printf("2. Scientific (sqrt, sin, cos, tan)\n");
         printf("3. Quit\n");
-        printf("Enter choice (1/2/3): ");
-        scanf(" %c", &choice);
+        printf("Select an Option: ");
+        scanf(" %c", &option);
 
-        switch (choice) {
+        switch (option) {
             case '1':
-                printf("\nEnter arithmetic expression (e.g., 5 + 3): ");
+                printf("\nEnter arithmetic expression: ");
                 scanf(" %[^\n]", input);
                 sscanf(input, "%lf %c %lf", &value1, &operator, &value2);
-                result = solve_arithmetic(value1, value2, operator);
-                printf("Result: %lf\n", result);
+                answer = solve_arithmetic(value1, value2, operator);
+                printf("Answer: %.2f\n", answer);
                 break;
             case '2':
-                printf("\nEnter scientific function and operand (e.g., sqrt 16): ");
+                printf("\nEnter scientific function and operand: ");
                 scanf(" %[^\n]", input);
                 sscanf(input, "%s %lf", function, &value1);
-                result = solve_scientific(function, value1);
-                printf("Result: %lf\n", result);
+                answer = solve_scientific(function, value1);
+                printf("Answer: %.2f\n", answer);
                 break;
             case '3':
-                printf("Exiting the calculator. Goodbye!\n");
+                printf("\nExiting the calculator!\n");
                 break;
             default:
-                printf("Invalid choice. Please enter 1, 2, or 3.\n");
+                printf("Invalid Option. Select an Option:\n");
         }
 
-        // Clear input buffer
         while ((getchar()) != '\n');
 
-    } while (choice != '3');
+    } while (option != '3');
 
     return 0;
 }
